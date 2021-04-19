@@ -35,18 +35,17 @@ class SignUpView(APIView):
             user = user_serializer.save()
 
             # Pass user as a parameter to MyUser serializer to get save and make that one-to-one relation work
-            my_user_serializer = MyUserSerializer(data={'user': user.id})
+            employee_serializer = EmployeeSerializer(data={'user': user.id})
 
-            if my_user_serializer.is_valid():
-                my_user = my_user_serializer.save()
-                my_user.save()
+            if employee_serializer.is_valid():
+                emp = employee_serializer.save()
             else:
-                result['response'] = my_user_serializer.errors
-                return Response(data=result, status=status.HTTP_200_OK)
+                result['response'] = employee_serializer.errors
+                return Response(data=result, status=status.HTTP_400_BAD_REQUEST)
 
         else:
             result['response'] = user_serializer.errors
-            return Response(data=result, status=status.HTTP_200_OK)
+            return Response(data=result, status=status.HTTP_400_BAD_REQUEST)
 
         result['response'] = "user successfully signed up."
         result['username'] = user.username
@@ -78,21 +77,88 @@ class LogoutView(APIView):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class RequestToBeMember(APIView):
-    """Request to be a member of an organization.
-        (edit user_type of a user)
-
-       Requires Token Authentication to get the user from it.
-    """
+class RequestView(APIView):
     permission_classes = (IsAuthenticated,)
 
-    def put(self, request):
-        try:
-            # Get the refresh token from the request and add it to the black list table.
-            pass
+    def post(self, request, request_type=None):
+        if request_type == "join":
+            """Request to be a member of an organization.
+                    (send a request and wait for validation)
+                """
+            try:
+                data = request.data
+                data['user'] = request.user
+                serializer = RequestToBeMemberSerializer()
+                serializer.save(data)
 
-            return Response(data={"response": "your request has been sent, wait for the validation"},
-                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response(data={"response": "your request has been sent, wait for the validation"},
+                                status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response(data={"response": "something went wrong !"},
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        elif request_type == "promotion":
+            """Request to be change a position from employee to manager.
+                        (send a request and wait for validation)
+                    """
+            try:
+
+                serializer = RequestToPromotionSerializer()
+                serializer.save(request.user)
+
+                return Response(data={"response": "your request has been sent, wait for the validation"},
+                                status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response(data={"response": "something went wrong !"},
+                                status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def get(self, request, user_type=None):
+        """Get requests by admin or manager(based on user_type).
+        """
+        try:
+            data = dict()
+            data['user_type'] = user_type
+            data['user'] = request.user
+            serializer = RequestSerializer()
+            requests = serializer.get(data)
+
+            return Response(data={"result": requests},
+                            status=status.HTTP_200_OK)
         except Exception as e:
             return Response(data={"response": "something went wrong !"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def put(self, request, user_type=None, request_id=None):
+        """Give response to a given request by admin or manager.
+            """
+        try:
+            data = request.data
+            data['user_type'] = user_type
+            data['request_id'] = request_id
+            data['user'] = request.user
+            serializer = RequestSerializer()
+            result = serializer.set_response(data)
+
+            return Response(data={"result": "request response has been sent and changes has been made"},
+                            status=status.HTTP_205_RESET_CONTENT)
+        except Exception as e:
+            return Response(data={"response": "something went wrong !"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+# class TaskView(APIView):
+#     permission_classes = (IsAuthenticated,)
+#
+#     def post(self, request):
+#         """Create a Task by manager (needs permission).
+#                    Requires Token Authentication to get the manager from it.
+#                 """
+#         try:
+#
+#             serializer = TaskSerializer()
+#             serializer.save(request)
+#
+#             return Response(data={"response": "Task created successfully"},
+#                             status=status.HTTP_200_OK)
+#         except Exception as e:
+#             return Response(data={"response": "something went wrong !"},
+#                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
