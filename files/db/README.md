@@ -3,7 +3,7 @@
 
 ### User, Employee, Staff
 
-To understand all the roles in the system we simply trace the foreign_keys through the User, Employee and staff tables.
+To understand all the roles in the system we simply trace the foreign_keys through the *User*, *Employee* and *Staff* tables.
 
 For example when a guest user signups in TasKoala, its will be store in the User table with `is_superuser=False` and also its user_id will be stored in the Employee table and an `employee_id` will be given to it too.
 
