@@ -145,20 +145,86 @@ class RequestView(APIView):
             return Response(data={"response": "something went wrong !"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-# class TaskView(APIView):
-#     permission_classes = (IsAuthenticated,)
-#
-#     def post(self, request):
-#         """Create a Task by manager (needs permission).
-#                    Requires Token Authentication to get the manager from it.
-#                 """
-#         try:
-#
-#             serializer = TaskSerializer()
-#             serializer.save(request)
-#
-#             return Response(data={"response": "Task created successfully"},
-#                             status=status.HTTP_200_OK)
-#         except Exception as e:
-#             return Response(data={"response": "something went wrong !"},
-#                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class TaskView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        """Create a Task by manager and assign it to an employee.
+
+           Requires Token Authentication to get the manager from it.
+        """
+        try:
+            data = request.data
+            data['user'] = request.user
+
+            serializer = TaskSerializer()
+            serializer.save(data)
+
+            return Response(data={"response": "Task created successfully"},
+                            status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(data={"response": "something went wrong !"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def get(self, request, staff_type=None, employee_id=None):
+        """Get Tasks based on two parameters:
+            staff_type:
+                -manager:
+                    employee_id==None: get all employees tasks which made by the manager.
+                    employee_id!=None: get a given employee's tasks.
+                -employee:
+                    get the token owner's (employee's) tasks.
+        """
+        try:
+            data = request.data
+            data['user'] = request.user
+            data['employee_id'] = employee_id
+            data['staff_type'] = staff_type
+
+            serializer = TaskSerializer()
+            tasks = serializer.get(data)
+
+            return Response(data=tasks, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(data={"response": "something went wrong !"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class EmployeeView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        """Get all employees of an organization by one of its managers.
+        """
+        try:
+            data = request.data
+            data['user'] = request.user
+
+            serializer = EmployeeSerializer()
+            employees = serializer.get(data)
+
+            return Response(data=employees, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(data={"response": "something went wrong !"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class UserView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        """Get a given user's info.
+        """
+        try:
+            data = request.data
+            data['user'] = request.user
+
+            serializer = UserSerializer()
+            user_info = serializer.get(data)
+
+            return Response(data=user_info, status=status.HTTP_200_OK)
+        except Exception as e:
+            raise e
+            return Response(data={"response": "something went wrong !"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)

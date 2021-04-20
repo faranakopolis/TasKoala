@@ -32,6 +32,42 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
+    def get(self, data):
+        result = dict()
+
+        # Check if the user is an admin (superuser) and return the info right away
+        if data['user'].is_superuser is True:
+            result = {"id": data['user'].id,
+                      "username": data['user'].username,
+                      "name": data['user'].first_name + " " + data['user'].last_name,
+                      "user_type": "admin"
+                      }
+
+        else:  # The user is not Admin
+            # Check if the user is a staff or a simple employee
+            try:
+                employee = Employee.objects.get(user=data['user'])
+                staff = Staff.objects.get(employee=employee)
+                result = {"user_id": data['user'].id,
+                          "employee_id": employee.id,
+                          "staff_id": staff.id,
+                          "username": staff.employee.user.username,
+                          "name": staff.employee.user.first_name + " " + staff.employee.user.last_name,
+                          "user_type": "staff",
+                          "staff_type": staff.staff_type
+                          }
+
+            except Staff.DoesNotExist:  # The user is a Simple Employee (not in an organization)
+                employee = Employee.objects.get(user=data['user'])
+                result = {"user_id": data['user'].id,
+                          "employee_id": employee.id,
+                          "username": employee.user.username,
+                          "name": employee.user.first_name + " " + employee.user.last_name,
+                          "user_type": "employee",
+                          }
+
+        return result
+
 
 class EmployeeSerializer(serializers.ModelSerializer):
     def save(self, **kwargs):
@@ -43,6 +79,22 @@ class EmployeeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Employee
         fields = ('user',)
+
+    def get(self, data):
+        results = []
+
+        # Find the manager based on Employee and based on request.user (built-in User)
+        manager = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
+        employees = Staff.objects.filter(organization=manager.organization, staff_type="employee")
+
+        for staff_employee in employees:
+            results.append({"staff_employee_id": staff_employee.id,
+                            "username": staff_employee.employee.user.username,
+                            "name": staff_employee.employee.user.first_name + " " +
+                                    staff_employee.employee.user.last_name,
+                            "joined_organization_at": staff_employee.created_at.strftime("%Y-%m-%d %H:%M:%S")
+                            })
+        return results
 
 
 # I defined my own serializers to work with nested Models (they don't inherit from ModelSerializer)
@@ -210,20 +262,91 @@ class RequestSerializer:
 
         return True
 
-# class TaskSerializer:
-#     def save(self, data):
-#         # Find the user(built-in) and based on that, find the employee (because they have one-to-one relation)
-#         # And then find who (staff) wants to create this task or do this task
-#         task_creator = Staff.objects.get(employee=Employee.objects.get(user=data.user))
-#         task_operator = Staff.objects.get(employee=Employee.objects.get(user=data['operator_id']))
-#
-#         task = Task(title=data['title'],
-#                     description=data['description'],
-#                     creator=task_creator,
-#                     operator=task_operator,
-#                     deadline=datetime.datetime.strptime(data['deadline'], "%Y-%m-%d %H:%M:%S")
-#                     )
-#
-#         task.save()
-#
-#         return True
+
+class TaskSerializer:
+    def save(self, data):
+        # Find the user(built-in) and based on that, find the employee (because they have one-to-one relation)
+        # And then find who (staff) wants to create this task or do this task
+        task_creator = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
+        task_operator = Staff.objects.get(id=data['operator_id'])
+
+        task = Task(title=data['title'],
+                    description=data['description'],
+                    creator=task_creator,
+                    operator=task_operator,
+                    deadline=datetime.datetime.strptime(data['deadline'], "%Y-%m-%d %H:%M:%S")
+                    )
+
+        task.save()
+
+        return True
+
+    def get(self, data):
+        results = []
+        # The manger got here through the first url or the second one
+        if data['staff_type'] == "manager" or data['staff_type'] is None:
+
+            if data['employee_id'] is None:  # Get all the employees tasks made by the manager
+                manager = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
+                tasks = Task.objects.filter(creator=manager)
+
+                for task in tasks:
+                    # Check if the done_time is None to set a proper value to it
+                    if task.done_time is None:
+                        done_time = None
+                    else:
+                        done_time = task.done_time.strftime("%Y-%m-%d %H:%M:%S")
+
+                    results.append({"title": task.title,
+                                    "description": task.description,
+                                    "operator": {"id": task.operator.id,
+                                                 "username": task.operator.employee.user.username,
+                                                 "name": task.operator.employee.user.first_name + " " +
+                                                         task.operator.employee.user.last_name},
+                                    "is_done": task.is_done,
+                                    "done_time": done_time,
+                                    "deadline": task.deadline.strftime("%Y-%m-%d %H:%M:%S"),
+                                    "created_at": task.created_at.strftime("%Y-%m-%d %H:%M:%S")
+                                    })
+
+            else:  # Get the given employee's tasks based on the employee_id.
+
+                manager = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
+                tasks = Task.objects.filter(creator=manager, operator_id=data["employee_id"])
+
+                for task in tasks:
+                    if task.done_time is None:
+                        done_time = None
+                    else:
+                        done_time = task.done_time.strftime("%Y-%m-%d %H:%M:%S")
+
+                    results.append({"title": task.title,
+                                    "description": task.description,
+                                    "is_done": task.is_done,
+                                    "done_time": done_time,
+                                    "deadline": task.deadline.strftime("%Y-%m-%d %H:%M:%S"),
+                                    "created_at": task.created_at.strftime("%Y-%m-%d %H:%M:%S")
+                                    })
+
+        elif data['staff_type'] == "employee":
+            employee = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
+            tasks = Task.objects.filter(operator=employee)
+
+            for task in tasks:
+                if task.done_time is None:
+                    done_time = None
+                else:
+                    done_time = task.done_time.strftime("%Y-%m-%d %H:%M:%S")
+
+                results.append({"title": task.title,
+                                "description": task.description,
+                                "is_done": task.is_done,
+                                "done_time": done_time,
+                                "deadline": task.deadline.strftime("%Y-%m-%d %H:%M:%S"),
+                                "created_at": task.created_at.strftime("%Y-%m-%d %H:%M:%S")
+                                })
+
+        # Sort the tasks based on the deadline time
+        results.sort(key=lambda item: item['deadline'], reverse=False)
+
+        return results

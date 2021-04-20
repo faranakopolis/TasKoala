@@ -12,22 +12,17 @@ from django.contrib.auth.models import User, AbstractUser, AbstractBaseUser
 from django.db import models
 
 
-class Admin(models.Model):
-    """Although I used one-to-one relation to extend the built-in User
-        but I must say this solution is not a good way of doing this (database and performance wise)
-        we could write the whole user management on our own so we wouldn't need a built-in Django user.
-        (but obviously there wasn't enough time for that)
-
-        This opinion also stands for Employee Model.
-    """
-    id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
-
-    class Meta:
-        db_table = 'admin'
-
-
 class Employee(models.Model):
+    """Although I used one-to-one relation to extend the built-in User
+            but I must say this solution is not a good way of doing this (database and performance wise)
+            we could have write the whole user management on our own so we wouldn't need a built-in Django user.
+            (but obviously there wasn't enough time for that)
+
+            This opinion also stands for Admin Model which is stored in the User Model
+                because:
+                -admins are created by the createsuperuser command and it stores data in User table.
+                -simply we can retrieve any admin by is_superuser field.
+        """
     id = models.AutoField(primary_key=True)
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
 
