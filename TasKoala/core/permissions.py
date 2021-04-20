@@ -1,3 +1,7 @@
+"""This module includes the Permissions for each API
+    ( I didn't have enough time to implement all of the permissions...)
+"""
+
 from rest_framework import permissions
 
 from TasKoala.core.models import *
@@ -10,10 +14,12 @@ class GetEmployeePermission(permissions.BasePermission):
 
     def has_permission(self, request, view):
         try:
-            staff = Staff.objects.filter(employee=Employee.objects.get(user=request.user))
+            staff = Staff.objects.get(employee=Employee.objects.get(user=request.user))
+
             if staff.staff_type == "employee":
                 return False
             elif staff.staff_type == "manager":
                 return True
-        except Staff.DoesNotExist:
+
+        except Staff.DoesNotExist:  # Just a simple Employee (he's not a staff)
             return False

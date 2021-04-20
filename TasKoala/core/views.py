@@ -6,6 +6,7 @@ Here are the functions and general logic of the project.
 
 import time
 
+from django.contrib.auth.decorators import permission_required
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -14,6 +15,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from TasKoala.core.serializers import *
+from TasKoala.core.permissions import *
 
 
 class SignUpView(APIView):
@@ -192,7 +194,7 @@ class TaskView(APIView):
 
 
 class EmployeeView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, GetEmployeePermission)
 
     def get(self, request):
         """Get all employees of an organization by one of its managers.
