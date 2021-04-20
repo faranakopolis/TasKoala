@@ -25,6 +25,8 @@ This API requires Token Authentication, and you can only use this API through th
 
 `{"name": "organization name", "description": "organization description"}`
 
+***For more detailed information please go through the code and its comments.***
+
 ## DataBase
 
 For more information on the database design and also downloading the SQL dump file you can click [here](https://github.com/maripillon/TasKoala/tree/master/files/db). 
