@@ -16,7 +16,9 @@
 
 ## APIs
 
-You can use the export file of TasKoala Postman collection here [postman_collection](https://github.com/maripillon/TasKoala/tree/master/files/postman).
-For example to call an API like 
+You can download and use the export file of TasKoala Postman's collection [here](https://github.com/maripillon/TasKoala/tree/master/files/postman).
+For example:
+`/api/v01/admin/create-organization/`
+
 
 
