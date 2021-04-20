@@ -17,8 +17,9 @@ As soon as an Employee's join request gets accepted, one record will be added to
 
 ### Request
 
-As you can see in the picture, the two columns `request_sender` and `request_receiver` may seem to be two foreign keys but they're not !
+As you can see in the picture, the two columns `request_sender` and `request_receiver` may look like they are two foreign keys. But they are not!
 
 They are just two simple integers. It's because until we can't specify the `request_type` and `request_sender` there's no way to tell that who is the one receiving this request !
-So we just consider them as integers to see which of these tables we're going to seach into (the *Admin*, *Staff* or the *Employee* table)
+
+As I mentioned, we can (and we do) consider them as integers to see which tables (the *Admin*, *Staff* or the *Employee* table) we are going to look up.
 
