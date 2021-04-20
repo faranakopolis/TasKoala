@@ -2,6 +2,7 @@
 
 ### Manage your Tasks like a Koala...
 ### easy peasy ;)
+
 ![logo_gray](https://github.com/maripillon/TasKoala/blob/master/Logo/Logo_gray.png?raw=true)
 
 **TasKoala** Is a task management system for organizations, including following use-cases(APIs)
@@ -13,6 +14,7 @@
     - ...
 
 
+## API Example
 _in progress..._
 
 
