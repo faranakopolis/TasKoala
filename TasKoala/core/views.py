@@ -191,7 +191,7 @@ class TaskView(APIView):
 
 
 class EmployeeView(APIView):
-    permission_classes = (IsAuthenticated, GetEmployeePermission)
+    permission_classes = (IsAuthenticated, EmployeeViewPermission)
 
     def get(self, request):
         """Get all employees of an organization by one of its managers.
@@ -229,7 +229,7 @@ class UserView(APIView):
 
 
 class OrganizationView(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, OrganizationViewPermission)
 
     def post(self, request):
         try:

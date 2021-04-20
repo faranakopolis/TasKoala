@@ -293,7 +293,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3MjU4LCJqdGkiOiJjMDk5ZGZjOWU4YTE0OTc5OGY4MWRjMjZjNDQ0MTgzZiIsInVzZXJfaWQiOjMwfQ.EBrq0gH_SsTKuuttcAKfkSE79YmZUFEobkKCjKpzm7A",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTY0Njc3LCJqdGkiOiJjMGRkZTViMzljNzg0NjY3ODA3YTEyZjI1ZDA5MWM4OCIsInVzZXJfaWQiOjMwfQ.dgKPXA67iS_DHcE41TxNiZhHB4oBJClo0EGxvp1DNkA",
 							"type": "string"
 						}
 					]
@@ -323,14 +323,14 @@
 			"response": []
 		},
 		{
-			"name": "admin get requests",
+			"name": "user get requests",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3NjE0LCJqdGkiOiJkMmUwNjgwNGU5OGE0NjliOWJmOWYyYzg4OGUyNGNiYyIsInVzZXJfaWQiOjIxfQ.tJP7orjgbpERzJn1sxfZBzbS2sR8gPsrSWDX2NrGew8",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTY0OTExLCJqdGkiOiIxMmVhYzVkYzk3MDc0ZTBhYjE3Njc3YjJmZWZhNzc1ZiIsInVzZXJfaWQiOjIxfQ.vSr1a8r8g3NQCrOzztVO8wU4Zh2k6gYijVOOdQe8WW0",
 							"type": "string"
 						}
 					]
@@ -338,7 +338,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/v01/admin/requests/",
+					"raw": "http://127.0.0.1:8000/api/v01/user/requests/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -350,7 +350,7 @@
 					"path": [
 						"api",
 						"v01",
-						"admin",
+						"user",
 						"requests",
 						""
 					]
@@ -359,50 +359,14 @@
 			"response": []
 		},
 		{
-			"name": "manager get requests",
+			"name": "user set request response",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3NTY0LCJqdGkiOiIyYWYyZjAzZWRjMDI0ZmI3YWMzYTgwNzQzMmUxMTdmOCIsInVzZXJfaWQiOjI2fQ.q0WchUGAQSunnOzmeGmFR9gGoGzz_Th8xPSrIXVEOyU",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/v01/manager/requests/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v01",
-						"manager",
-						"requests",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "admin set request response",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3NjE0LCJqdGkiOiJkMmUwNjgwNGU5OGE0NjliOWJmOWYyYzg4OGUyNGNiYyIsInVzZXJfaWQiOjIxfQ.tJP7orjgbpERzJn1sxfZBzbS2sR8gPsrSWDX2NrGew8",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTY0OTExLCJqdGkiOiIxMmVhYzVkYzk3MDc0ZTBhYjE3Njc3YjJmZWZhNzc1ZiIsInVzZXJfaWQiOjIxfQ.vSr1a8r8g3NQCrOzztVO8wU4Zh2k6gYijVOOdQe8WW0",
 							"type": "string"
 						}
 					]
@@ -419,7 +383,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/v01/admin/request/set-response/10",
+					"raw": "http://127.0.0.1:8000/api/v01/user/request/set-response/11",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -431,56 +395,10 @@
 					"path": [
 						"api",
 						"v01",
-						"admin",
+						"user",
 						"request",
 						"set-response",
-						"10"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "manager set request response",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODYzNzc3LCJqdGkiOiJjYWZjN2I0OWJmOGM0ZjQwYWNmMjQ4ZDM0ODk0MTc2YiIsInVzZXJfaWQiOjI2fQ.Zx6brdLaXfyfRmhb6uCAgoMgbUeYWigj-OLyTEwq3JQ",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"response\":true}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/v01/manager/request/set-response/9",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v01",
-						"manager",
-						"request",
-						"set-response",
-						"9"
+						"11"
 					]
 				}
 			},
@@ -532,14 +450,14 @@
 			"response": []
 		},
 		{
-			"name": "employee get tasks (his own tasks)",
+			"name": "staff get all tasks",
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTIwMzY0LCJqdGkiOiJjMmZlMjlkM2JlMjM0NDFlYjljOTBhZTZlMjk0NmI0YyIsInVzZXJfaWQiOjI5fQ.hc0xM4qSLznrBXuyE2-XSJfsAt4KRFwKFxOYSmig_8Q",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTY1Nzc1LCJqdGkiOiJiYTZhNzNkNDAxNmI0YjJlYjFmYmJiODVlMTMyODdhNSIsInVzZXJfaWQiOjI2fQ.X5yFR9NXfGC8UgHk8DJDzw4-x1ihw2lQmmoqid0ITgY",
 							"type": "string"
 						}
 					]
@@ -547,7 +465,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/v01/employee/tasks/",
+					"raw": "http://127.0.0.1:8000/api/v01/staff/tasks/",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -559,47 +477,12 @@
 					"path": [
 						"api",
 						"v01",
-						"employee",
+						"staff",
 						"tasks",
 						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "manager get all of his employees tasks",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTQwNjk4LCJqdGkiOiI3MzZhOTEzOTU3Mzg0OTdjYTAxNGE4Zjk2YmQ3MTJmYyIsInVzZXJfaWQiOjI2fQ.zh0V7MJ_rrYX0xN_nCSOSruhGHPdcxlSYcJNMOZQYB0",
-							"type": "string"
-						}
 					]
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://127.0.0.1:8000/api/v01/manager/tasks/",
-					"protocol": "http",
-					"host": [
-						"127",
-						"0",
-						"0",
-						"1"
-					],
-					"port": "8000",
-					"path": [
-						"api",
-						"v01",
-						"manager",
-						"tasks",
-						""
-					]
-				}
+				"description": "if the token owner is a manager then he gets all employees tasks\r\nand if the token owner is an employee then he gets his own tasks"
 			},
 			"response": []
 		},
@@ -611,7 +494,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTE3Mzc3LCJqdGkiOiJlZjU2MWFiM2QwNWI0NjE1YmE4MmU4MTEyYjhkM2Q2YyIsInVzZXJfaWQiOjI2fQ.55RnA-giBkwkQKrB3nFWR5dNQqGgwwlA1Zh6u_aPz68",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTY1Nzc1LCJqdGkiOiJiYTZhNzNkNDAxNmI0YjJlYjFmYmJiODVlMTMyODdhNSIsInVzZXJfaWQiOjI2fQ.X5yFR9NXfGC8UgHk8DJDzw4-x1ihw2lQmmoqid0ITgY",
 							"type": "string"
 						}
 					]
@@ -619,7 +502,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/api/v01/manager/tasks/4",
+					"raw": "http://127.0.0.1:8000/api/v01/manager/tasks/5",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -633,7 +516,7 @@
 						"v01",
 						"manager",
 						"tasks",
-						"4"
+						"5"
 					]
 				}
 			},
@@ -647,7 +530,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTI4NzE0LCJqdGkiOiIzOWVmYzg0MDEyNzI0NDAxOGY3MzJlOTg1NTM0ZTM2YiIsInVzZXJfaWQiOjI2fQ.bMDpPtb7UpRrMPsXfCgWk0-olm4-BkD1NKjDqmoNqSA",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTUyNDEwLCJqdGkiOiI4ZThhZGQ1NzZmYjk0MGI0YTRmMGU5NGZkYTM5ZTIwZCIsInVzZXJfaWQiOjMwfQ.uHOEo92cq6G87qFFya6laHUtDAAjACz_dxlFPvzbY1o",
 							"type": "string"
 						}
 					]
