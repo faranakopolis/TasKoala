@@ -25,6 +25,8 @@ urlpatterns = [
     path('api/v01/user/token/refresh/', TokenRefreshView.as_view(), name='user_token_refresh'),
     path('api/v01/user/logout/', LogoutView.as_view(), name='user_logout'),
 
+    path('api/v01/admin/create-organization/', OrganizationView.as_view(), name='create_an_org'),
+
     path('api/v01/user/get-info/', UserView.as_view(), name='get_a_user_information'),
 
     path('api/v01/employee/request/<str:request_type>/', RequestView.as_view(),

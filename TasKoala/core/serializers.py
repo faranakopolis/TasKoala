@@ -97,6 +97,20 @@ class EmployeeSerializer(serializers.ModelSerializer):
         return results
 
 
+class OrganizationSerializer(serializers.ModelSerializer):
+    def save(self, **kwargs):
+        org = Organization(name=self.validated_data['name'],
+                           description=self.validated_data['description'],
+                           creator_id=self.validated_data['creator'].id)
+
+        org.save()
+        return org
+
+    class Meta:
+        model = Organization
+        fields = ('name', 'description', 'creator')
+
+
 # I defined my own serializers to work with nested Models (they don't inherit from ModelSerializer)
 # because ModelSerializer doesn't let you work with more than one Model
 class RequestToBeMemberSerializer:

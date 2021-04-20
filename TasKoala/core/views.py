@@ -225,6 +225,29 @@ class UserView(APIView):
 
             return Response(data=user_info, status=status.HTTP_200_OK)
         except Exception as e:
+            return Response(data={"response": "something went wrong !"},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class OrganizationView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        try:
+            result = dict()
+            data = request.data
+            data['creator'] = request.user.id
+
+            serializer = OrganizationSerializer(data=data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(data={"response": "Organization created successfully"},
+                                status=status.HTTP_200_OK)
+            else:
+                result['response'] = serializer.errors
+                return Response(data=result, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as e:
             raise e
             return Response(data={"response": "something went wrong !"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
