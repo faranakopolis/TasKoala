@@ -27,6 +27,6 @@ This API requires Token Authentication, and you can only use this API through th
 
 ## DataBase
 
-For more information on the database design and also downloading the sql dump file you can click [here](https://github.com/maripillon/TasKoala/tree/master/files/db). 
+For more information on the database design and also downloading the SQL dump file you can click [here](https://github.com/maripillon/TasKoala/tree/master/files/db). 
 
 
