@@ -32,16 +32,13 @@ urlpatterns = [
 
     path('api/v01/employee/request/<str:request_type>/', RequestView.as_view(),
          name='request_to_be_an_org_member_or_get_promotion'),
-    # You can get user_type from get_info API:
-    # if it's staff and staff_type is manager then pass ../manager/.. as user_type here
-    # and if it's an admin then pass ../admin/..
-    path('api/v01/<str:user_type>/requests/', RequestView.as_view(),
+    path('api/v01/user/requests/', RequestView.as_view(),
          name='get_requests_by_admin_or_manager'),
-    path('api/v01/<str:user_type>/request/set-response/<int:request_id>', RequestView.as_view(),
+    path('api/v01/user/request/set-response/<int:request_id>', RequestView.as_view(),
          name='give_response_to_a_request_by_admin_or_manager'),
 
     path('api/v01/manager/create-task/', TaskView.as_view(), name='create_a_task'),
-    path('api/v01/<str:staff_type>/tasks/', TaskView.as_view(), name='get_all_tasks_based_on_staff_type'),
+    path('api/v01/staff/tasks/', TaskView.as_view(), name='get_all_tasks_based_on_staff_type'),
     path('api/v01/manager/tasks/<int:employee_id>', TaskView.as_view(), name='get_a_given_employee_tasks'),
 
     path('api/v01/manager/employees/', EmployeeView.as_view(), name='get_all_employees_by_manager'),

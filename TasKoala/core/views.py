@@ -114,12 +114,11 @@ class RequestView(APIView):
                 return Response(data={"response": "something went wrong !"},
                                 status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def get(self, request, user_type=None):
+    def get(self, request):
         """Get requests by admin or manager(based on user_type).
         """
         try:
             data = dict()
-            data['user_type'] = user_type
             data['user'] = request.user
             serializer = RequestSerializer()
             requests = serializer.get(data)
@@ -130,12 +129,11 @@ class RequestView(APIView):
             return Response(data={"response": "something went wrong !"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def put(self, request, user_type=None, request_id=None):
+    def put(self, request, request_id=None):
         """Give response to a given request by admin or manager.
             """
         try:
             data = request.data
-            data['user_type'] = user_type
             data['request_id'] = request_id
             data['user'] = request.user
             serializer = RequestSerializer()
@@ -169,8 +167,8 @@ class TaskView(APIView):
             return Response(data={"response": "something went wrong !"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def get(self, request, staff_type=None, employee_id=None):
-        """Get Tasks based on two parameters:
+    def get(self, request, employee_id=None):
+        """Get Tasks based on two fields:
             staff_type:
                 -manager:
                     employee_id==None: get all employees tasks which made by the manager.
@@ -182,7 +180,6 @@ class TaskView(APIView):
             data = request.data
             data['user'] = request.user
             data['employee_id'] = employee_id
-            data['staff_type'] = staff_type
 
             serializer = TaskSerializer()
             tasks = serializer.get(data)

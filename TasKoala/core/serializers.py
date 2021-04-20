@@ -147,9 +147,16 @@ class RequestToPromotionSerializer:
 class RequestSerializer:
     def get(self, data):
         results = []
+        is_admin = is_manager = False
 
-        # Find and return all the requests based on user_type
-        if data['user_type'] == "admin":
+        # Find the user kind (manager or admin)
+        if data['user'].is_superuser is True:
+            is_admin = True
+        else:
+            is_manager = True
+
+        # Find and return all the requests based on is_admin and is_manager
+        if is_admin is True:
             requests = Request.objects.filter(Q(request_type_id=2) | Q(request_type_id=3), request_result=None)
             for request in requests:
                 if request.request_type.id == 2:
@@ -189,7 +196,7 @@ class RequestSerializer:
                                     "created_at": request.created_at.strftime("%Y-%m-%d %H:%M:%S")
                                     })
 
-        elif data['user_type'] == "manager":
+        elif is_manager is True:
             """These are join (employee->staff(employee)) requests.
                 Only Managers of the requested_organization handle these requests
                 so we should search in the Employee table based on request_sender field
@@ -222,9 +229,16 @@ class RequestSerializer:
     def set_response(self, data):
         request = Request.objects.get(id=data['request_id'])
         request.request_result = data['response']
+        is_admin = is_manager = False
+
+        # Find the user kind (manager or admin)
+        if data['user'].is_superuser is True:
+            is_admin = True
+        else:
+            is_manager = True
 
         if data['response'] is True:
-            if data['user_type'] == "admin":  # Handle request types 2,3 (join as manager and promotion)
+            if is_admin is True:  # Handle request types 2,3 (join as manager and promotion)
                 request.request_receiver = data['user'].id
                 request.save()
 
@@ -245,7 +259,7 @@ class RequestSerializer:
                     staff.staff_type = "manager"
                     staff.save()
 
-            elif data['user_type'] == "manager":  # Handle request type 1 (join as employee)
+            elif is_manager is True:  # Handle request type 1 (join as employee)
                 # Find the manager's (staff) id and set its id as request_receiver
                 manager = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
 
@@ -262,11 +276,11 @@ class RequestSerializer:
                 staff.save()
 
         else:  # Set the response giver id to request_receiver and save it
-            if data['user_type'] == "admin":
+            if is_admin is True:
                 request.request_receiver = data['user'].id
                 request.save()
 
-            elif data['user_type'] == "manager":
+            elif is_manager is True:
                 manager = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
 
                 request.request_receiver = manager.id
@@ -295,12 +309,14 @@ class TaskSerializer:
 
     def get(self, data):
         results = []
+
+        staff = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
+
         # The manger got here through the first url or the second one
-        if data['staff_type'] == "manager" or data['staff_type'] is None:
+        if staff.staff_type == "manager":
 
             if data['employee_id'] is None:  # Get all the employees tasks made by the manager
-                manager = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
-                tasks = Task.objects.filter(creator=manager)
+                tasks = Task.objects.filter(creator=staff)
 
                 for task in tasks:
                     # Check if the done_time is None to set a proper value to it
@@ -323,8 +339,7 @@ class TaskSerializer:
 
             else:  # Get the given employee's tasks based on the employee_id.
 
-                manager = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
-                tasks = Task.objects.filter(creator=manager, operator_id=data["employee_id"])
+                tasks = Task.objects.filter(creator=staff, operator_id=data["employee_id"])
 
                 for task in tasks:
                     if task.done_time is None:
@@ -340,9 +355,8 @@ class TaskSerializer:
                                     "created_at": task.created_at.strftime("%Y-%m-%d %H:%M:%S")
                                     })
 
-        elif data['staff_type'] == "employee":
-            employee = Staff.objects.get(employee=Employee.objects.get(user=data['user']))
-            tasks = Task.objects.filter(operator=employee)
+        elif staff.staff_type == "employee":
+            tasks = Task.objects.filter(operator=staff)
 
             for task in tasks:
                 if task.done_time is None:
