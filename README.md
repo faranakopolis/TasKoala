@@ -21,5 +21,8 @@ You can download and use the export file of TasKoala Postman's collection [here]
 For example:
 `/api/v01/admin/create-organization/`
 
+This API requires Token Authentication, and you can only use this API through the POST method. You also need to pass a JSON in the body request like below:
+
+`{"name": "organization name", "description": "organization description"}`
 
 
