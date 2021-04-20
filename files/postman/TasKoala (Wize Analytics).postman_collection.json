@@ -1,0 +1,679 @@
+{
+	"info": {
+		"_postman_id": "a269bfea-a2cb-49af-a1a0-3a1a6e33a1c9",
+		"name": "TasKoala (Wize Analytics)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "employee signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"s_s\",\"password\":\"s000\",\"first_name\":\"Soroush\",\"last_name\":\"Prbdi\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/employee/signup/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"employee",
+						"signup",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user login_get token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"m_bagheri\",\"password\":\"m000\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/user/login/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"user",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user refresh token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYxOTAyODcxMCwianRpIjoiZmY4ZWUwZmI4ZDk0NGY2NDhmZWE0OTI1ZTUwYmE1Y2MiLCJ1c2VyX2lkIjoyMn0.zD4tuE1GVjxRpdmxRVHeyB3Zc4FXeQvhTRUJNwbrPbY\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/user/token/refresh/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"user",
+						"token",
+						"refresh",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4NzcyODQ2LCJqdGkiOiI5M2RmODU1MGY2NzA0ZWQ5OWE3MjI1Y2EzNmNlNTBkNiIsInVzZXJfaWQiOjIyfQ.2HeON5mHLw18MHPl4tp2QfrwRYt8UVV-CuW91CGBQ8M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"refresh_token\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYxOTAyODcxMCwianRpIjoiZmY4ZWUwZmI4ZDk0NGY2NDhmZWE0OTI1ZTUwYmE1Y2MiLCJ1c2VyX2lkIjoyMn0.zD4tuE1GVjxRpdmxRVHeyB3Zc4FXeQvhTRUJNwbrPbY\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/user/logout/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"user",
+						"logout",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin create an organization",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTM1MjE4LCJqdGkiOiIwY2EzNzJjYjE2Mzk0MDIyOGRlNTAxYTg2ODQyOWFmNiIsInVzZXJfaWQiOjI0fQ.w-h_C7ptsWOBLhkLnZv9iBNlnDQ8fEE5f3ceq1bmsN8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"new_org\", \"description\":\"just a test org\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/admin/create-organization/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"admin",
+						"create-organization",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user get info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTMyOTMwLCJqdGkiOiI4MzIzODU5MTljMDc0NzJkYjBiMWY5ZjgwNGNiMjIyZiIsInVzZXJfaWQiOjI2fQ.9aGOUYS9TBkY6V7ArjIik2YbHitJJbfvq4ZJjZoCzuE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/user/get-info/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"user",
+						"get-info",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employee request to join",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODM5MTQ5LCJqdGkiOiI5NzA3NDAwN2JlMGU0MjdkOTdlOGJiZDgxMmQ1MzkyZSIsInVzZXJfaWQiOjMwfQ.RPwec0eE7O44a-yp-viCK617YcpyAd9vZAj75hBXxKY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"position\":\"employee\",\"organization\":\"wize analytics\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000api/v01/employee/request/join/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000api",
+					"path": [
+						"v01",
+						"employee",
+						"request",
+						"join",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employee request to promotion",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3MjU4LCJqdGkiOiJjMDk5ZGZjOWU4YTE0OTc5OGY4MWRjMjZjNDQ0MTgzZiIsInVzZXJfaWQiOjMwfQ.EBrq0gH_SsTKuuttcAKfkSE79YmZUFEobkKCjKpzm7A",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/employee/request/promotion/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"employee",
+						"request",
+						"promotion",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin get requests",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3NjE0LCJqdGkiOiJkMmUwNjgwNGU5OGE0NjliOWJmOWYyYzg4OGUyNGNiYyIsInVzZXJfaWQiOjIxfQ.tJP7orjgbpERzJn1sxfZBzbS2sR8gPsrSWDX2NrGew8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/admin/requests/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"admin",
+						"requests",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manager get requests",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3NTY0LCJqdGkiOiIyYWYyZjAzZWRjMDI0ZmI3YWMzYTgwNzQzMmUxMTdmOCIsInVzZXJfaWQiOjI2fQ.q0WchUGAQSunnOzmeGmFR9gGoGzz_Th8xPSrIXVEOyU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/manager/requests/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"manager",
+						"requests",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "admin set request response",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODY3NjE0LCJqdGkiOiJkMmUwNjgwNGU5OGE0NjliOWJmOWYyYzg4OGUyNGNiYyIsInVzZXJfaWQiOjIxfQ.tJP7orjgbpERzJn1sxfZBzbS2sR8gPsrSWDX2NrGew8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"response\":false}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/admin/request/set-response/10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"admin",
+						"request",
+						"set-response",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manager set request response",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4ODYzNzc3LCJqdGkiOiJjYWZjN2I0OWJmOGM0ZjQwYWNmMjQ4ZDM0ODk0MTc2YiIsInVzZXJfaWQiOjI2fQ.Zx6brdLaXfyfRmhb6uCAgoMgbUeYWigj-OLyTEwq3JQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"response\":true}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/manager/request/set-response/9",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"manager",
+						"request",
+						"set-response",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manager create task",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTE3Mzc3LCJqdGkiOiJlZjU2MWFiM2QwNWI0NjE1YmE4MmU4MTEyYjhkM2Q2YyIsInVzZXJfaWQiOjI2fQ.55RnA-giBkwkQKrB3nFWR5dNQqGgwwlA1Zh6u_aPz68",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\":\"req apis\", \"description\":\"done with req apis\", \"operator_id\":5, \"deadline\":\"2021-04-21 17:00:00\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/manager/create-task/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"manager",
+						"create-task",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "employee get tasks (his own tasks)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTIwMzY0LCJqdGkiOiJjMmZlMjlkM2JlMjM0NDFlYjljOTBhZTZlMjk0NmI0YyIsInVzZXJfaWQiOjI5fQ.hc0xM4qSLznrBXuyE2-XSJfsAt4KRFwKFxOYSmig_8Q",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/employee/tasks/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"employee",
+						"tasks",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manager get all of his employees tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTQwNjk4LCJqdGkiOiI3MzZhOTEzOTU3Mzg0OTdjYTAxNGE4Zjk2YmQ3MTJmYyIsInVzZXJfaWQiOjI2fQ.zh0V7MJ_rrYX0xN_nCSOSruhGHPdcxlSYcJNMOZQYB0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/manager/tasks/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"manager",
+						"tasks",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manager get a given employee's tasks",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTE3Mzc3LCJqdGkiOiJlZjU2MWFiM2QwNWI0NjE1YmE4MmU4MTEyYjhkM2Q2YyIsInVzZXJfaWQiOjI2fQ.55RnA-giBkwkQKrB3nFWR5dNQqGgwwlA1Zh6u_aPz68",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/manager/tasks/4",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"manager",
+						"tasks",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "manager get all employees info",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE4OTI4NzE0LCJqdGkiOiIzOWVmYzg0MDEyNzI0NDAxOGY3MzJlOTg1NTM0ZTM2YiIsInVzZXJfaWQiOjI2fQ.bMDpPtb7UpRrMPsXfCgWk0-olm4-BkD1NKjDqmoNqSA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/v01/manager/employees/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v01",
+						"manager",
+						"employees",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
