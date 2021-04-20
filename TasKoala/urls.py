@@ -1,10 +1,11 @@
 """TasKoala
-Is a task management system for organizations including following use-cases(APIs):
+Is a task management system for organizations, including following use-cases(APIs):
     - Creating account for each user.
-    - Request to be some organization's employee.
-    - Request to change your position.
+    - Request to join an organization as staff (employee or manager)
+    - Request for promotion.
     - Create and assign tasks.
     - ...
+
 With TasKoala, manage your tasks like a Koala...easy peasy ;)
 
 Author: Maripillon (Faranak Heydari)
@@ -20,11 +21,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('api/v01/employee/signup/', SignUpView.as_view(), name='employee_register'),
-    # Every User can use these three APIs
+    # Every User can use the following three APIs
     path('api/v01/user/login/', TokenObtainPairView.as_view(), name='user_get_token'),
     path('api/v01/user/token/refresh/', TokenRefreshView.as_view(), name='user_token_refresh'),
     path('api/v01/user/logout/', LogoutView.as_view(), name='user_logout'),
-
+    #
     path('api/v01/admin/create-organization/', OrganizationView.as_view(), name='create_an_org'),
 
     path('api/v01/user/get-info/', UserView.as_view(), name='get_a_user_information'),

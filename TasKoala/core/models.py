@@ -1,7 +1,7 @@
 """ This module includes the TasKoala's models
      based on the database design.
 
-    I extended Django's built-in User class to be like my own Users (Employee and Admin)
+    I extended the Django's built-in User class to be like my User (Employee).
 
 """
 
@@ -13,8 +13,8 @@ from django.db import models
 
 
 class Employee(models.Model):
-    """Although I used one-to-one relation to extend the built-in User
-            but I must say this solution is not a good way of doing this (database and performance wise)
+    """Although I used one-to-one relation as a solution to extend the built-in User
+            I must say this is not a good way of doing this (database and performance wise)
             we could have write the whole user management on our own so we wouldn't need a built-in Django user.
             (but obviously there wasn't enough time for that)
 

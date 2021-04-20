@@ -248,6 +248,5 @@ class OrganizationView(APIView):
                 return Response(data=result, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
-            raise e
             return Response(data={"response": "something went wrong !"},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)

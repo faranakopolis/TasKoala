@@ -3,7 +3,6 @@
 
 """
 
-import validators
 from django.db.models import Q
 from rest_framework import serializers
 
@@ -33,7 +32,6 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def get(self, data):
-        result = dict()
 
         # Check if the user is an admin (superuser) and return the info right away
         if data['user'].is_superuser is True:
