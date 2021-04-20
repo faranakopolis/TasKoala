@@ -14,7 +14,9 @@
     - ...
 
 
-## API Example
-_in progress..._
+## APIs
+
+You can use the export file of TasKoala Postman collection here [postman_collection](https://github.com/maripillon/TasKoala/tree/master/files/postman).
+For example to call an API like 
 
 
