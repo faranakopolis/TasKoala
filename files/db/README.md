@@ -1,7 +1,7 @@
 
 ## Database
 
-<img src="https://github.com/maripillon/TasKoala/blob/master/files/db/TasKoala_db_schema.png" width="600" height="400">
+<img src="https://github.com/maripillon/TasKoala/blob/master/files/db/TasKoala_db_schema.png" width="800" height="550">
 
 ### User, Employee, Staff
 
