@@ -265,7 +265,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8000api/v01/employee/request/join/",
+					"raw": "http://127.0.0.1:8000/api/v01/employee/request/join/",
 					"protocol": "http",
 					"host": [
 						"127",
