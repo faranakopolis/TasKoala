@@ -245,12 +245,27 @@ class RequestSerializer:
                 if request.request_type.id == 2:
                     employee = Employee.objects.get(id=request.request_sender)
 
-                    # Create a new Staff as a manager
-                    staff = Staff(employee=employee,
-                                  organization=request.requested_organization,
-                                  request=request,
-                                  staff_type="manager")
-                    staff.save()
+                    # Check if the employee has been added as an active staff before
+                    # to prevent working actively for two organizations
+                    try:
+                        obj = Staff.objects.get(employee=employee)
+
+                        # This employee was some organization's staff before
+                        # Check to see if he's active in that organization or not
+                        if obj.is_active is False and obj.organization != request.requested_organization:
+                            staff = Staff(employee=employee,
+                                          organization=request.requested_organization,
+                                          request=request,
+                                          staff_type="manager")
+                            staff.save()
+
+                    except Staff.DoesNotExist:
+                        # Create a new Staff as a manager
+                        staff = Staff(employee=employee,
+                                      organization=request.requested_organization,
+                                      request=request,
+                                      staff_type="manager")
+                        staff.save()
 
                 elif request.request_type.id == 3:
                     # Find the given staff in the request
@@ -268,12 +283,27 @@ class RequestSerializer:
 
                 employee = Employee.objects.get(id=request.request_sender)
 
-                # Create a new Staff as a employee
-                staff = Staff(employee=employee,
-                              organization=request.requested_organization,
-                              request=request,
-                              staff_type="employee")
-                staff.save()
+                # Check if the employee has been added as an active staff before
+                # to prevent working actively for two organizations
+                try:
+                    obj = Staff.objects.get(employee=employee)
+
+                    # This employee was some organization's staff before
+                    # Check to see if he's active in that organization or not
+                    if obj.is_active is False and obj.organization != request.requested_organization:
+                        staff = Staff(employee=employee,
+                                      organization=request.requested_organization,
+                                      request=request,
+                                      staff_type="employee")
+                        staff.save()
+
+                except Staff.DoesNotExist:
+                    # Create a new Staff as a employee
+                    staff = Staff(employee=employee,
+                                  organization=request.requested_organization,
+                                  request=request,
+                                  staff_type="employee")
+                    staff.save()
 
         else:  # Set the response giver id to request_receiver and save it
             if is_admin is True:
