@@ -1,6 +1,8 @@
 
 ## Database
 
+![](https://github.com/maripillon/TasKoala/blob/master/files/db/TasKoala_db_schema.png?raw=true =250x250)
+
 ### User, Employee, Staff
 
 As explained in the code, in order to create the Employee model, I extended the Django built-in User.
