@@ -229,6 +229,7 @@ class RequestSerializer:
     def set_response(self, data):
         request = Request.objects.get(id=data['request_id'])
         request.request_result = data['response']
+
         is_admin = is_manager = False
 
         # Find the user kind (manager or admin)
@@ -236,7 +237,7 @@ class RequestSerializer:
             is_admin = True
         else:
             is_manager = True
-
+        print(data, is_manager, is_admin)
         if data['response'] is True:
             if is_admin is True:  # Handle request types 2,3 (join as manager and promotion)
                 request.request_receiver = data['user'].id
@@ -287,7 +288,7 @@ class RequestSerializer:
                 # to prevent working actively for two organizations
                 try:
                     obj = Staff.objects.get(employee=employee)
-
+                    print(obj)
                     # This employee was some organization's staff before
                     # Check to see if he's active in that organization or not
                     if obj.is_active is False and obj.organization != request.requested_organization:
